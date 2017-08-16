@@ -83,7 +83,7 @@ them in the event of an inadvertent overwriting install if need be).
   - `gwen-gpm install gecko-driver 0.18.0 c:/web-drivers/gecko-driver`
 
 - Install the chrome driver version set in a property to the target/chrome-driver folder relative to current directory
-  - `gwen-gpm -p path/to/file.properties install chrome-driver chrome.version target/chrome-driver`
+  - `gwen-gpm install chrome-driver chrome.version target/chrome-driver -p path/to/file.properties`
 
 ### Update Operations
 
@@ -114,7 +114,7 @@ time and so it won't matter which one you use.
 - Update/install the chrome driver version set in a property to the target/chrome-driver folder relative to current
   directory. If the version in the properties file is set to 'latest' then the latest version is updated in the cache 
   and installed. Otherwise if the version is set to a specific release, then the update will behave like an install.
-  - `gwen-gpm -p path/to/file.properties update chrome-driver chrome.version target/chrome-driver`
+  - `gwen-gpm update chrome-driver chrome.version target/chrome-driver -p path/to/file.properties`
 
 Package Verification
 --------------------
