@@ -77,12 +77,15 @@ them in the event of an inadvertent overwriting install if need be).
 #### Examples:
 
 Install the latest gwen-web to the target/gwen-packages/gwen-web folder relative to current directory
+
 `gwen-gpm install gwen-web latest target/gwen-packages/gwen-web`
 
 Install a specific version of gecko driver to c:/web-drivers/gecko-driver.
+
 `gwen-gpm install gecko-driver 0.18.0 c:/web-drivers/gecko-driver`
 
 Install the chrome driver version set in a property to the target/chrome-driver folder relative to current directory
+
 `gwen-gpm -p path/to/file.properties install chrome-driver chrome.version.property target/chrome-driver`
 
 ### Update Operations
@@ -105,15 +108,18 @@ time and so it won't matter which one you use.
 
 Update latest gwen-web version in cache and install it to the target/gwen-packages/gwen-web folder relative to current
 directory
+
 `gwen-gpm update gwen-web latest target/gwen-packages/gwen-web`
 
 Install a specific version of gecko driver to the c:/web-drivers/gecko-driver folder location (update behaves the
 same as install when a specific version is specified)
+
 `gwen-gpm update gecko-driver 0.18.0 c:/web-drivers/gecko-driver`
 
 Update/install the chrome driver version set in a property to the target/chrome-driver folder relative to current
 directory. If the version in the properties file is set to 'latest' then the latest version is updated in the cache
 and installed. Otherwise if the version is set to a specific release, then the update will behave like an install.
+
 `gwen-gpm -p path/to/file.properties update chrome-driver chrome.version.property target/chrome-driver`
 
 Package Verification
