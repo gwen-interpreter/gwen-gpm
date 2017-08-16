@@ -50,7 +50,7 @@ Usage
 -----
 
 ```
-gwen-gpm [options] <operation> <package> <version> [<destination>]
+gwen-gpm [options] <operation> <package> <version> <destination>
 
   -p, --properties <files>
                            Comma separated list of properties files
