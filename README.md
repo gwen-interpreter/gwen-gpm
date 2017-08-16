@@ -27,7 +27,7 @@ The following packages are currently managed:
 
 Benefits of using this package manager when working with Gwen include:
 
-- Package downloads and installs are managed for you
+- All downloads and installs are managed for you
 - Easily update to the latest versions of packages
 - Easily switch between versions of packages
 - All downloads are verified for integrity before they are installed
