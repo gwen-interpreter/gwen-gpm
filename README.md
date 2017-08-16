@@ -4,17 +4,18 @@ Gwen-GPM
 ========
 
 A cross platform package manager for downloading and installing [Gwen](https://github.com/gwen-interpreter/gwen)
-[packages](https://github.com/gwen-interpreter/gwen#what-engines-are-available) and associated binaries and native
-web drivers to local workstations, servers, or shared workspaces. Downloaded package archives are cached and managed in a
-local `.gwen/cache` folder in your user home directory and are unpacked and installed to the file system in locations that you specify. Checksum verifications are performed on all downloaded packages and no environment variables or system paths are created or modified during installation so your system remains in tact.
+[packages](https://github.com/gwen-interpreter/gwen#what-engines-are-available) and their binary dependencies to local workstations, servers, or shared workspaces. Downloaded packages are cached and managed in a local `.gwen/cache` folder in your user home directory and are unpacked and installed to the file system in locations that you specify. Checksum verifications are performed on all downloaded packages and no environment variables or system paths are created or modified during installation so your system remains in tact.
 
-The following packages are currently managed:
+The download and installation of following are managed by this package manager:
 
-- [gwen-web](https://github.com/gwen-interpreter/gwen-web)
-- [chrome-driver](https://sites.google.com/a/chromium.org/chromedriver/)
-- [gecko-driver](https://github.com/mozilla/geckodriver)
-- [ie-driver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver)
-- [selenium](https://github.com/SeleniumHQ/selenium)
+- Gwen packages
+  - [gwen-web](https://github.com/gwen-interpreter/gwen-web)
+- Native web drivers
+  - [chrome-driver](https://sites.google.com/a/chromium.org/chromedriver/)
+  - [gecko-driver](https://github.com/mozilla/geckodriver)
+  - [ie-driver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver)
+- Java libraries
+  - [selenium](https://github.com/SeleniumHQ/selenium)
 
 ### Current Status
 
