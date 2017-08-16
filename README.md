@@ -40,8 +40,11 @@ Runtime Requirements
 
 Installation
 ------------
-- Download and unpack the [latest](https://github.com/gwen-interpreter/gwen-gpm/releases/latest) zip distribution to a
-  location on your drive
+- Ensure that you have Java 8 or higher installed. 
+  - You can verify what version of Java you have by typing `java -version` in a command prompt
+  - If the command does not report Java version 8 or higher, then install the latest [Java (JRE)](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+- Download and unpack the [latest gwen-gpm zip](https://github.com/gwen-interpreter/gwen-gpm/releases/latest) to a location 
+  on your drive
 - Add the bin folder that resides in your unpacked location to your system path
 - If on Linux/Mac, run `chmod -R u+x .` in the root of your install directory to enable execution permissions
 - Download and save this [gwen-gpm.properties](https://github.com/gwen-interpreter/gwen-gpm/raw/master/gwen-gpm.properties) file into the root of your user home directory
