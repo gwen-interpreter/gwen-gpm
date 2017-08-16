@@ -3,10 +3,10 @@
 Gwen-GPM
 ========
 
-A cross platform package manager for downloading and installing [Gwen](https://github.com/gwen-interpreter/gwen)
-[packages](https://github.com/gwen-interpreter/gwen#what-engines-are-available) and their binary dependencies to local workstations, servers, or shared workspaces. Downloaded packages are cached and managed in a local `.gwen/cache` folder in your user home directory and are unpacked and installed to the file system in locations that you specify. Checksum verifications are performed on all downloaded packages and no environment variables or system paths are created or modified during installation so your system remains in tact.
+A package manager for downloading and installing [Gwen](https://github.com/gwen-interpreter/gwen)
+[packages](https://github.com/gwen-interpreter/gwen#what-engines-are-available) and their binary dependencies to local workstations, servers, or shared workspaces in a consistent manner across platforms. Downloaded packages are cached and managed in a local `.gwen/cache` folder in your user home directory and are installed to the file system in locations that you specify. Checksum verifications are performed on all downloaded packages to verify their integrity and no environment variables or system paths are created or modified during installation so your system remains intact.
 
-The download and installation of following are managed by this package manager:
+The download and installation of the following packages are managed:
 
 - Gwen packages
   - [gwen-web](https://github.com/gwen-interpreter/gwen-web)
