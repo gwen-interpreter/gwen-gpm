@@ -1,4 +1,4 @@
-[![Gwen-web](https://github.com/gwen-interpreter/gwen/wiki/img/gwen-attractor.png)](https://github.com/gwen-interpreter/gwen/wiki/The-Gwen-Logo)
+[![Gwen-web](https://user-images.githubusercontent.com/1369994/29352618-c4cbb7b0-82aa-11e7-9f84-07d1a4a1e9ac.png)](https://github.com/gwen-interpreter/gwen/wiki/The-Gwen-Logo)
 
 Gwen-GPM
 ========
