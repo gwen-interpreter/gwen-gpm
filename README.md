@@ -42,8 +42,6 @@ Runtime Requirements
 Installation
 ------------
 
-RELELASE 1.0.0 COMING SOON!!
-
 - Ensure that you have Java 8 or higher installed. 
   - You can verify what version of Java you have by typing `java -version` in a command prompt
   - If the command does not report Java version 8 or higher, then install the latest [Java (JRE)](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
