@@ -74,7 +74,7 @@ the specified destination folder. Checksum verifications are performed on all do
 install. Subsequent installs of the same version of a package will install the cached package instead of downloading
 it again. In the case of linux environments, execution permissions will be assigned to all extracted files at
 installation time. Any file system contents that may exist in a target directory are zipped and backed up to the
-local `.gwen/backukps` folder in your user home directory before installation takes place (so you can manually recover
+local `.gwen/backups` folder in your user home directory before installation takes place (so you can manually recover
 them in the event of an inadvertent overwriting install if need be).
 
 #### Examples:
