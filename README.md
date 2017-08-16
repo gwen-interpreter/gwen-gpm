@@ -96,10 +96,10 @@ the internet again. This makes the package manager efficient and is fine if you'
 releases that could have been published in the meantime. But if you do want to update to the absolute latest, then you
 can use the `update` operation instead of `install`. Every time you use `update`, the package manager will re-fetch
 the latest published version of the package from the internet and update its cached version to that value before
-installing that package. Subsequent installs will then resolve that new latest version in the cache.
+installing that package. Subsequent installs of latest packcages will then resolve to that new latest version in the cache.
 
 How often you perform updates is up to you, and you can do it frequently or every time if performance overhead is
-is not a concern. Update operations behave the same way as first time install operations do in regards to 'latest'
+not a concern. Update operations behave the same way as first time install operations do in regards to 'latest'
 versions. If on the other hand you specify a specific version, then updates will behave exactly like installs do every
 time and so it won't matter which one you use.
 
