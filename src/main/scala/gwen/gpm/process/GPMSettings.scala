@@ -37,8 +37,8 @@ class GPMSettings(propsFiles: List[File]) {
   private val InlineProperty = """.*\$\{(.+?)\}.*""".r
 
   private val defaultOverrides = List(
-    new File(FileIO.userHomeDir, "gwen.properties"),
-    new File("gwen-gpm.properties")
+    new File("gwen-gpm.properties"),
+    new File(FileIO.userHomeDir, "gwen-gpm.properties")
   )
 
   loadAll()
