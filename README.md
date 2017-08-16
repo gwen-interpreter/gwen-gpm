@@ -1,7 +1,7 @@
 [![Gwen-web](https://github.com/gwen-interpreter/gwen/wiki/img/gwen-attractor.png)](https://github.com/gwen-interpreter/gwen/wiki/The-Gwen-Logo)
 
-Gwen Package Manager
-====================
+Gwen-GPM
+========
 
 A cross platform package manager for downloading and installing [Gwen](https://github.com/gwen-interpreter/gwen)
 [packages](https://github.com/gwen-interpreter/gwen#what-engines-are-available) and associated binaries and native
