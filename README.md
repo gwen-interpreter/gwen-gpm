@@ -5,10 +5,8 @@ Gwen Package Manager
 
 A cross platform package manager for downloading and installing [Gwen](https://github.com/gwen-interpreter/gwen)
 [packages](https://github.com/gwen-interpreter/gwen#what-engines-are-available) and associated binaries and native
-web drivers to local workstations, servers, or shared workspaces. Downloaded packages are cached and managed in a
-local `.gwen/cache` folder in your user home directory and can be installed to any location of your choosing. Checksum
-verifications are performed on all downloaded packages and no environment variables or system paths are created or
-modified during installation so your system remains in tact.
+web drivers to local workstations, servers, or shared workspaces. Downloaded package archives are cached and managed in a
+local `.gwen/cache` folder in your user home directory and are unpacked and installed to the file system in locations that you specify. Checksum verifications are performed on all downloaded packages and no environment variables or system paths are created or modified during installation so your system remains in tact.
 
 The following packages are currently managed:
 
