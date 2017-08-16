@@ -171,4 +171,4 @@ See also: [LICENSE](LICENSE).
 This project has dependencies on other open source projects. All distributed third party dependencies and
 their licenses are listed in the [LICENSE-THIRDPARTY](LICENSE-THIRDPARTY) file.
 
-Open sourced dd August 2017 hh:mm pm AEST
+Open sourced 16 August 2017 4:51 pm AEST
