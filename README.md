@@ -127,7 +127,7 @@ necessary since all packages are downloaded from public web sites where releases
 regularly in this [gwen-gpm.properties](???) file that you will have downloaded during your
 [gwen-pgm installation](#installation). If you need to add a new checksum entry for a later package version that is
 not listed in your copy of this file, you can do so by calculating its checksum value with the following command
-against a known distribution before adding it the file.
+against a known distribution before adding it to the file.
 
    (Linux, OSX, or Windows via Cygwin): `shasum -a 256 known-dist.zip`
 
