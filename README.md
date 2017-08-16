@@ -44,7 +44,7 @@ Installation
   location on your drive
 - Add the bin folder that resides in your unpacked location to your system path
 - If on Linux/Mac, run `chmod -R u+x .` in the root of your install directory to enable execution permissions
-- Download the [gwen-gpm.properties](https://github.com/gwen-interpreter/gwen-gpm/raw/master/gwen-gpm.properties) file and save it into the root of your user home directory
+- Download and save this [gwen-gpm.properties](https://github.com/gwen-interpreter/gwen-gpm/raw/master/gwen-gpm.properties) file into the root of your user home directory
 
 Usage
 -----
