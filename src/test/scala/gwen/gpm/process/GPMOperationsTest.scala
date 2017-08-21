@@ -29,8 +29,17 @@ class GPMOperationsTest extends FlatSpec with Matchers {
   private val settings = new GPMSettings(Nil)
 
   "gwen-web package" should "install" in {
+    val destDir = new File(s"${rootDir.getPath}/package/gwen-web")
+    val options = GPMOptions(Operation.install, GPackage.gwen_web, "latest", None)
+    new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
+    destDir should exist
+    destDir.isDirectory should be (true)
+    new File(destDir, ".gwen").listFiles().find(_.getName startsWith "gwen-web").get should exist
+  }
+
+  "gwen-web package" should "install into external dir" in {
     val destDir = new File(s"target/gwen-package/gwen-web")
-    val options = GPMOptions(Operation.install, GPackage.gwen_web, "2.9.1", Some(destDir))
+    val options = GPMOptions(Operation.install, GPackage.gwen_web, "latest", Some(destDir))
     new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
     destDir should exist
     destDir.isDirectory should be (true)
@@ -38,8 +47,17 @@ class GPMOperationsTest extends FlatSpec with Matchers {
   }
 
   "gwen-web package" should "update" in {
+    val destDir = new File(s"${rootDir.getPath}/package/gwen-web")
+    val options = GPMOptions(Operation.update, GPackage.gwen_web, "latest", None)
+    new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
+    destDir should exist
+    destDir.isDirectory should be (true)
+    new File(destDir, ".gwen").listFiles().find(_.getName startsWith "gwen-web").get should exist
+  }
+
+  "gwen-web package" should "update into external dir" in {
     val destDir = new File(s"target/gwen-package/gwen-web")
-    val options = GPMOptions(Operation.update, GPackage.gwen_web, "2.9.1", Some(destDir))
+    val options = GPMOptions(Operation.update, GPackage.gwen_web, "latest", Some(destDir))
     new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
     destDir should exist
     destDir.isDirectory should be (true)
@@ -47,8 +65,17 @@ class GPMOperationsTest extends FlatSpec with Matchers {
   }
 
   "chrome-driver package" should "install" in {
+    val destDir = new File(s"${rootDir.getPath}/package/chrome-driver")
+    val options = GPMOptions(Operation.install, GPackage.chrome_driver, "latest", None)
+    new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
+    destDir should exist
+    destDir.isDirectory should be (true)
+    new File(destDir, ".gwen").listFiles().find(_.getName startsWith "chrome-driver").get should exist
+  }
+
+  "chrome-driver package" should "install in external dir" in {
     val destDir = new File(s"target/gwen-package/chrome-driver")
-    val options = GPMOptions(Operation.install, GPackage.chrome_driver, "2.31", Some(destDir))
+    val options = GPMOptions(Operation.install, GPackage.chrome_driver, "latest", Some(destDir))
     new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
     destDir should exist
     destDir.isDirectory should be (true)
@@ -56,8 +83,17 @@ class GPMOperationsTest extends FlatSpec with Matchers {
   }
 
   "chrome-driver package" should "update" in {
+    val destDir = new File(s"${rootDir.getPath}/package/chrome-driver")
+    val options = GPMOptions(Operation.update, GPackage.chrome_driver, "latest", None)
+    new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
+    destDir should exist
+    destDir.isDirectory should be (true)
+    new File(destDir, ".gwen").listFiles().find(_.getName startsWith "chrome-driver").get should exist
+  }
+
+  "chrome-driver package" should "update in external dir" in {
     val destDir = new File(s"target/gwen-package/chrome-driver")
-    val options = GPMOptions(Operation.update, GPackage.chrome_driver, "2.31", Some(destDir))
+    val options = GPMOptions(Operation.update, GPackage.chrome_driver, "latest", Some(destDir))
     new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
     destDir should exist
     destDir.isDirectory should be (true)
@@ -65,8 +101,17 @@ class GPMOperationsTest extends FlatSpec with Matchers {
   }
 
   "gecko-driver package" should "install" in {
+    val destDir = new File(s"${rootDir.getPath}/package/gecko-driver")
+    val options = GPMOptions(Operation.install, GPackage.gecko_driver, "latest", None)
+    new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
+    destDir should exist
+    destDir.isDirectory should be (true)
+    new File(destDir, ".gwen").listFiles().find(_.getName startsWith "gecko-driver").get should exist
+  }
+
+  "gecko-driver package" should "install in external dir" in {
     val destDir = new File(s"target/gwen-package/gecko-driver")
-    val options = GPMOptions(Operation.install, GPackage.gecko_driver, "0.18.0", Some(destDir))
+    val options = GPMOptions(Operation.install, GPackage.gecko_driver, "latest", Some(destDir))
     new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
     destDir should exist
     destDir.isDirectory should be (true)
@@ -74,8 +119,17 @@ class GPMOperationsTest extends FlatSpec with Matchers {
   }
 
   "gecko-driver package" should "update" in {
+    val destDir = new File(s"${rootDir.getPath}/package/gecko-driver")
+    val options = GPMOptions(Operation.update, GPackage.gecko_driver, "latest", None)
+    new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
+    destDir should exist
+    destDir.isDirectory should be (true)
+    new File(destDir, ".gwen").listFiles().find(_.getName startsWith "gecko-driver").get should exist
+  }
+
+  "gecko-driver package" should "update in external dir" in {
     val destDir = new File(s"target/gwen-package/gecko-driver")
-    val options = GPMOptions(Operation.update, GPackage.gecko_driver, "0.18.0", Some(destDir))
+    val options = GPMOptions(Operation.update, GPackage.gecko_driver, "latest", Some(destDir))
     new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
     destDir should exist
     destDir.isDirectory should be (true)
@@ -83,8 +137,17 @@ class GPMOperationsTest extends FlatSpec with Matchers {
   }
 
   "selenium package" should "install" in {
+    val destDir = new File(s"${rootDir.getPath}/package/selenium")
+    val options = GPMOptions(Operation.install, GPackage.selenium, "latest", None)
+    new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
+    destDir should exist
+    destDir.isDirectory should be (true)
+    new File(destDir, ".gwen").listFiles().find(_.getName startsWith "selenium").get should exist
+  }
+
+   "selenium package" should "install in external dir" in {
     val destDir = new File(s"target/gwen-package/selenium")
-    val options = GPMOptions(Operation.install, GPackage.selenium, "3.4.0", Some(destDir))
+    val options = GPMOptions(Operation.install, GPackage.selenium, "latest", Some(destDir))
     new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
     destDir should exist
     destDir.isDirectory should be (true)
@@ -92,8 +155,17 @@ class GPMOperationsTest extends FlatSpec with Matchers {
   }
 
   "selenium package" should "update" in {
+    val destDir = new File(s"${rootDir.getPath}/package/selenium")
+    val options = GPMOptions(Operation.update, GPackage.selenium, "latest", None)
+    new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
+    destDir should exist
+    destDir.isDirectory should be (true)
+    new File(destDir, ".gwen").listFiles().find(_.getName startsWith "selenium").get should exist
+  }
+
+  "selenium package" should "update in external dir" in {
     val destDir = new File(s"target/gwen-package/selenium")
-    val options = GPMOptions(Operation.update, GPackage.selenium, "3.4.0", Some(destDir))
+    val options = GPMOptions(Operation.update, GPackage.selenium, "latest", Some(destDir))
     new GPMOperations(options, settings).install().getPath should be (destDir.getPath)
     destDir should exist
     destDir.isDirectory should be (true)

@@ -107,9 +107,11 @@ object GPMOptions {
         options.copy(version = v)
       } text "latest | version property | version number"
 
-      arg[File]("<destination>") required() action { (d, options) =>
+      arg[File]("<destination>") optional() action { (d, options) =>
         options.copy(destination = Some(d))
-      } text "the destination folder to install the package to"
+      } text
+        """the destination folder to install the package to
+          |                           - if not specified, defaults to ~/.gwen/package/<package>""".stripMargin
 
     }
 

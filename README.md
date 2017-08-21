@@ -4,7 +4,11 @@ Gwen-GPM
 ========
 
 A package manager for downloading and installing [Gwen](https://github.com/gwen-interpreter/gwen)
-[packages](https://github.com/gwen-interpreter/gwen#what-engines-are-available) and their binary dependencies to local workstations, servers, or shared workspaces in a consistent manner across platforms. Downloaded packages are cached and managed in a local `.gwen/cache` folder in your user home directory and are installed to the file system in locations that you specify. Checksum verifications are performed on all downloaded packages to verify their integrity and no environment variables or system paths are created or modified during installation so your system remains intact.
+[packages](https://github.com/gwen-interpreter/gwen#what-engines-are-available) and their binary dependencies to local
+workstations, servers, or shared workspaces in a consistent manner across platforms. Downloaded packages are cached and
+managed in a local `.gwen/cache` folder in your user home directory and can be installed to the file system in
+locations that you specify. Checksum verifications are performed on all downloaded packages to verify their integrity
+and no environment variables or system paths are created or modified during installation so your system remains intact.
 
 The download and installation of the following packages are managed:
 
@@ -55,14 +59,15 @@ Usage
 -----
 
 ```
-gwen-gpm [options] <operation> <package> <version> <destination>
+gwen-gpm [options] <operation> <package> <version> [destination]
 
   -p, --properties <files>
                            Comma separated list of properties files
   <operation>              install | update
   <package>                gwen-web | chrome-driver | gecko-driver | ie-driver | selenium
   <version>                latest | version property | version number
-  <destination>            the destination folder to install the package to
+  [destination]            the destination folder to install the package to
+                           - if not specified, defaults to ~/.gwen/packages/<package>
 ```
 
 ### Install Operations
@@ -70,17 +75,23 @@ gwen-gpm [options] <operation> <package> <version> <destination>
 Each supported package is a Zip or Tar.Gz file that can be downloaded and installed (unpacked) to a directory. The
 package manager will know which type of archive to download and install for the platform you are on. Installation
 involves downloading a package archive (and caching it if it has not been downloaded already) and then unpacking it to
-the specified destination folder. Checksum verifications are performed on all downloads and re-verified on each
-install. Subsequent installs of the same version of a package will install the cached package instead of downloading
-it again. In the case of linux environments, execution permissions will be assigned to all extracted files at
-installation time. Any file system contents that may exist in a target directory are zipped and backed up to the
-local `.gwen/backups` folder in your user home directory before installation takes place (so you can manually recover
-them in the event of an inadvertent overwriting install if need be).
+the default (~/.gwen/packages/<package>) or specified destination folder. Checksum verifications are performed on all
+downloads and re-verified on each install. Subsequent installs of the same version of a package will install the cached
+package instead of downloading it again. In the case of linux environments, execution permissions will be assigned to
+all extracted files at installation time. Any file system contents that may exist in a target directory are zipped and
+backed up to the local `.gwen/backups` folder in your user home directory before installation takes place (so you can
+manually recover them in the event of an inadvertent overwriting install if need be).
 
 #### Examples:
 
+- Install the latest gwen-web to the default directory at ~/.gwen/packages/gwen-web
+  - `gwen-gpm install gwen-web latest`
+
 - Install the latest gwen-web to the target/gwen-packages/gwen-web folder relative to current directory
   - `gwen-gpm install gwen-web latest target/gwen-packages/gwen-web`
+
+- Install a specific version of gecko driver to the default directory at ~/.gwen/packages/gecko-driver
+  - `gwen-gpm install gecko-driver 0.18.0`
 
 - Install a specific version of gecko driver to c:/web-drivers/gecko-driver.
   - `gwen-gpm install gecko-driver 0.18.0 c:/web-drivers/gecko-driver`
@@ -97,7 +108,8 @@ the internet again. This makes the package manager efficient and is fine if you'
 releases that could have been published in the meantime. But if you do want to update to the absolute latest, then you
 can use the `update` operation instead of `install`. Every time you use `update`, the package manager will re-fetch
 the latest published version of the package from the internet and update its cached version to that value before
-installing that package. Subsequent installs of latest packcages will then resolve to that new latest version in the cache.
+installing that package. Subsequent installs of latest packcages will then resolve to that new latest version in the
+cache.
 
 How often you perform updates is up to you, and you can do it frequently or every time if performance overhead is
 not a concern. Update operations behave the same way as first time install operations do in regards to 'latest'
@@ -106,9 +118,17 @@ time and so it won't matter which one you use.
 
 #### Examples:
 
+- Update latest gwen-web version in cache and install it to the default directory at ~/.gwen/packages/gwen-web
+  directory
+  - `gwen-gpm update gwen-web latest`
+
 - Update latest gwen-web version in cache and install it to the target/gwen-packages/gwen-web folder relative to current
   directory
   - `gwen-gpm update gwen-web latest target/gwen-packages/gwen-web`
+
+- Install a specific version of gecko driver to the default directory at ~/.gwen/packages/gecko-driver (update behaves
+  the same as install when a specific version is specified)
+  - `gwen-gpm update gecko-driver 0.18.0`
 
 - Install a specific version of gecko driver to the c:/web-drivers/gecko-driver folder location (update behaves the
   same as install when a specific version is specified)

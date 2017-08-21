@@ -1,3 +1,8 @@
+1.0.1
+=====
+Aug 21, 2017
+- Default destination install directory to ~/gwen/packages/<package> in user home if it is not specified
+
 1.0.0
 =====
 Aug 16, 2017

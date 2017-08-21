@@ -40,13 +40,14 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
   private val lockFile = init(options)
   private val cacheDir = new File(s"$rootDir/cache")
   private val backupDir = new File(s"$rootDir/backup")
+  private val packageDir = new File(s"$rootDir/package")
 
   private val version = resolveVersion(options)
   private val packageId = s"${options.pkg.name}-$version"
   private val checksumKey = s"gwen.checksum.$packageId"
 
   private val archiveFile = new File(cacheDir, s"${options.pkg.name}/$packageId.${options.pkg.archiveType.fileExtension}")
-  private val destinationDir = options.destination.getOrElse(missingDestinationError)
+  private val destinationDir = options.destination.getOrElse(new File(packageDir, options.pkg.name))
   private val installFile = new File(destinationDir, s".gwen/$packageId")
 
   private def init(options: GPMOptions): File = {
@@ -103,7 +104,9 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
       if (!archiveFile.exists()) {
         download()
       }
-      if (options.destination.nonEmpty && destinationDir.exists()) backupExternal()
+      if (destinationDir.exists()) {
+        backupExisting()
+      }
       installArchive()
       destinationDir
     } finally {
@@ -180,11 +183,9 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
       case _ => // noop
     }
 
-    // if is external install, then create a package install file in hidden .gwen folder
-    if (options.destination.nonEmpty) {
-      if (!installFile.getParentFile.exists()) installFile.getParentFile.mkdirs()
-      installFile.createNewFile()
-    }
+    // create a package install file in hidden .gwen folder
+    if (!installFile.getParentFile.exists()) installFile.getParentFile.mkdirs()
+    installFile.createNewFile()
 
     // set execution permission on non windows platforms
       if (OSType.determine() != OSType.Win) {
@@ -193,7 +194,7 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
 
   }
 
-  private def backupExternal() = {
+  private def backupExisting() = {
     val hiddenGwenDir = new File(destinationDir, ".gwen")
     if (!hiddenGwenDir.exists()) {
       cannotInstallToExternallyManagedDir(packageId, destinationDir)
