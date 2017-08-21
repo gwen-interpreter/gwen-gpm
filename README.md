@@ -75,7 +75,7 @@ gwen-gpm [options] <operation> <package> <version> [destination]
 Each supported package is a Zip or Tar.Gz file that can be downloaded and installed (unpacked) to a directory. The
 package manager will know which type of archive to download and install for the platform you are on. Installation
 involves downloading a package archive (and caching it if it has not been downloaded already) and then unpacking it to
-the default (~/.gwen/packages/<package>) or specified destination folder. Checksum verifications are performed on all
+the default ~/.gwen/packages/package-name folder or specified destination folder. Checksum verifications are performed on all
 downloads and re-verified on each install. Subsequent installs of the same version of a package will install the cached
 package instead of downloading it again. In the case of linux environments, execution permissions will be assigned to
 all extracted files at installation time. Any file system contents that may exist in a target directory are zipped and
