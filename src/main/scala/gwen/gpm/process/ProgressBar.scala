@@ -48,7 +48,7 @@ class ProgressBar(barLength: Int, totalUnits: Long) {
   private def show(): Unit = {
     val percentage = unitsDone.toDouble / totalUnits.toDouble
     val barUnits = (percentage * barLength).toInt
-    val bar = s"${"=" * (barUnits - (if (barUnits < barLength) 0 else 1))}>${"-" * (barLength - barUnits)}"
+    val bar = s"${"=" * (barUnits - 1)}>${"-" * (barLength - barUnits)}"
     val duration = DurationFormatter.format(Duration.fromNanos(System.nanoTime() - startTime))
     print(s"\r[gwen-gpm] [$bar] ${(percentage * 100).toInt}% $duration ")
     if (barUnits == barLength) {

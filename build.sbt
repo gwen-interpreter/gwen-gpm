@@ -12,7 +12,7 @@ organizationHomepage := Some(url("http://gweninterpreter.org"))
 
 startYear := Some(2017)
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.4"
 
 crossPaths := false
 
@@ -35,8 +35,8 @@ javaSource in Compile := baseDirectory.value / "src/main/scala"
 javaSource in Test := baseDirectory.value / "src/test/scala"
 
 libraryDependencies ++= Seq(
-  "com.github.scopt" %% "scopt" % "3.6.0",
-  "org.apache.commons" % "commons-compress" % "1.14",
-  "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+  "com.github.scopt" %% "scopt" % "3.7.0",
+  "org.apache.commons" % "commons-compress" % "1.15",
+  "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 )
 
