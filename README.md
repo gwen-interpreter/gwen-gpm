@@ -178,7 +178,7 @@ How to contribute:
 License
 -------
 
-Copyright 2017 Branko Juric, Brady Wood
+Copyright 2017-2018 Branko Juric, Brady Wood
 
 This software is open sourced under the
 [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
