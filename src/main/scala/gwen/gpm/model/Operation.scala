@@ -22,6 +22,6 @@ object Operation extends Enumeration {
 
   type Operation = Value
 
-  val install, update = Value
+  val download, install, update = Value
 
 }

@@ -189,4 +189,13 @@ class GPMOperationsTest extends FlatSpec with Matchers {
     new File(destDir, ".gwen").listFiles().find(_.getName startsWith "selenium").get should exist
   }
 
+  "latest ie-driver package" should "download" in {
+    if (lockFile.exists()) lockFile.delete()
+    val destDir = new File(s"${rootDir.getPath}/cache/ie-driver")
+    val options = GPMOptions(Operation.download, GPackage.ie_driver, "latest", None)
+    val downloadFile = new GPMOperations(options, settings).download()
+    downloadFile.getParentFile.getPath should be (destDir.getPath)
+    downloadFile.exists() should be (true)
+  }
+
 }

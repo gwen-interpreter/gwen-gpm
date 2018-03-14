@@ -45,6 +45,7 @@ object GwenGPM extends App {
       if (version != "provided") {
         val operations = new GPMOperations(options, settings)
         options.operation match {
+          case Operation.download => operations.download()
           case Operation.install => operations.install()
           case Operation.update => operations.install()
           case _ => None

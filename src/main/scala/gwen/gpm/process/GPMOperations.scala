@@ -52,9 +52,6 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
 
   private def init(options: GPMOptions): File = {
 
-    // do not allow windows packages on non-windows platforms
-    if (options.pkg == GPackage.ie_driver && OSType.determine() != OSType.Win) ieDriverAvailableOnWindowsOnly()
-
     // create or wait for lock file (only one process at a time allowed to work in .gwen folder)
     val lockFile = new File(s"${rootDir.getPath}/.lock")
     if (lockFile.exists()) {
@@ -101,9 +98,12 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
 
   def install(): File = {
     try {
-      if (!archiveFile.exists()) {
-        download()
-      }
+
+      download()
+
+      // do not install windows packages on non-windows platforms
+      if (options.pkg == GPackage.ie_driver && OSType.determine() != OSType.Win) ieDriverAvailableOnWindowsOnly()
+
       if (destinationDir.exists()) {
         backupExisting()
       }
@@ -114,20 +114,24 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
     }
   }
 
-  private def download(): Unit = {
-    val downloadUrl = options.pkg.getDownloadUrl(version)
-    // report error if no checksum is configured for this package version
-    if (settings.getOpt(checksumKey).isEmpty) {
-      if (archiveFile.exists()) archiveFile.delete()
-      checksumNotConfiguredError(checksumKey, downloadUrl)
+  def download(): File = {
+    if (!archiveFile.exists()) {
+      val downloadUrl = options.pkg.getDownloadUrl(version)
+      // report error if no checksum is configured for this package version
+      if (settings.getOpt(checksumKey).isEmpty) {
+        if (archiveFile.exists()) archiveFile.delete()
+        checksumNotConfiguredError(checksumKey, downloadUrl)
+      }
+      println(s"[gwen-gpm] Downloading $packageId from $downloadUrl")
+      if (!archiveFile.getParentFile.exists()) archiveFile.getParentFile.mkdirs()
+      val archiveURL = new URI(downloadUrl)
+      val (_, fileChecksum) = archiveFile.download(archiveURL.toURL)
+      verifyChecksum(options, fileChecksum)
+      println(s"[gwen-gpm] Download done")
+    }  else {
+      println(s"[gwen-gpm] $packageId exists in download cache")
     }
-    println(s"[gwen-gpm] Downloading $packageId from $downloadUrl")
-    if (!archiveFile.getParentFile.exists()) archiveFile.getParentFile.mkdirs()
-    val archiveURL = new URI(downloadUrl)
-    val (_, fileChecksum) = archiveFile.download(archiveURL.toURL)
-    verifyChecksum(options, fileChecksum)
-    println(s"[gwen-gpm] Download done")
-
+    archiveFile
   }
 
   private def verifyChecksum(options: GPMOptions, fileChecksum: String) = {
