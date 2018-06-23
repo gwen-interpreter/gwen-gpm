@@ -160,6 +160,13 @@ file on your system like so:
       - `checksum` = the sha-256 checksum value (hex digest) as calculated above
         - Note: you can also provide a comma separated list of checksums for different cross platform package types
 
+Proxy Connections
+-----------------
+
+If you need to go through a proxy for downloads, set the following properties in your `gwen-gpm.properties` file:
+- `gwen.proxy.host`
+- `gwen.proxy.port`
+
 Contributions
 -------------
 

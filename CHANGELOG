@@ -1,3 +1,11 @@
+1.0.3
+=====
+Jun 23, 2018
+- Add following settings to support proxy configuration for download connections:
+  - `gwen.proxy.host`
+  - `gwen.proxy.port`
+- Update scala from version 2.12.4 to 2.12.6
+
 1.0.2
 =====
 Nov 4, 2017

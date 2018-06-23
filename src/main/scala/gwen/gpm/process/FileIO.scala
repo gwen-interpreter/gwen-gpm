@@ -16,7 +16,7 @@
 package gwen.gpm.process
 
 import java.io._
-import java.net.{HttpURLConnection, URL}
+import java.net.{HttpURLConnection, InetSocketAddress, URL}
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -94,8 +94,14 @@ object FileIO {
       * @param url the URL to the contents to download
       * @return a tuple containing the downloaded file and the SHA-256 hash sum (hex digest) of the contents
       */
-    def download(url: URL): (File, String) = {
-      val httpConn = url.openConnection().asInstanceOf[HttpURLConnection]
+    def download(url: URL, settings: GPMSettings): (File, String) = {
+      val urlConn = settings.getOpt("gwen.proxy.host").map { host =>
+        val port = settings.get("gwen.proxy.port").trim.toInt
+        val proxy = new java.net.Proxy(java.net.Proxy.Type.HTTP, new InetSocketAddress(host, port))
+        println(s"[gwen-gpm] Using configured proxy for download connection")
+        url.openConnection(proxy)
+      } getOrElse(url.openConnection())
+      val httpConn = urlConn.asInstanceOf[HttpURLConnection]
       val contentLength = httpConn.getContentLengthLong
       val in = new BufferedInputStream(httpConn.getInputStream)
       val digest = MessageDigest.getInstance("SHA-256")

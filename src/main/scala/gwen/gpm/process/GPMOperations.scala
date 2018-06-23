@@ -125,7 +125,7 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
       println(s"[gwen-gpm] Downloading $packageId from $downloadUrl")
       if (!archiveFile.getParentFile.exists()) archiveFile.getParentFile.mkdirs()
       val archiveURL = new URI(downloadUrl)
-      val (_, fileChecksum) = archiveFile.download(archiveURL.toURL)
+      val (_, fileChecksum) = archiveFile.download(archiveURL.toURL, settings)
       verifyChecksum(options, fileChecksum)
       println(s"[gwen-gpm] Download done")
     }  else {
