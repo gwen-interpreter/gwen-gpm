@@ -70,7 +70,7 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
     println(s"[gwen-gpm] Target ${options.pkg} version is $targetVersion")
     val targetLatest = targetVersion == "latest"
     val latestVersionFile = new File(cacheDir, s"${options.pkg.name}/${options.pkg.name}.latest")
-    if (options.operation == Operation.update || (targetLatest && !latestVersionFile.exists())) {
+    if (options.operation == Operation.update || options.operation == Operation.download || (targetLatest && !latestVersionFile.exists())) {
       val latestVersion = options.pkg.fetchLatestVersion
       if (targetVersion != latestVersion) {
         println(s"[gwen-gpm] The latest available ${options.pkg} version is $latestVersion")
