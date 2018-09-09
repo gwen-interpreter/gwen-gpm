@@ -21,9 +21,9 @@ import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.zip.{ZipEntry, ZipInputStream, ZipOutputStream}
-import javax.xml.bind.DatatypeConverter
 
 import gwen.gpm.Errors
+import org.apache.commons.codec.binary.Hex
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream
 import org.apache.commons.compress.utils.IOUtils
@@ -125,7 +125,7 @@ object FileIO {
       } finally {
         in.close()
       }
-      (file, DatatypeConverter.printHexBinary(digest.digest()).toLowerCase)
+      (file, Hex.encodeHexString(digest.digest()).toLowerCase)
     }
 
     /**
@@ -147,7 +147,7 @@ object FileIO {
       } finally {
         in.close()
       }
-      DatatypeConverter.printHexBinary(digest.digest()).toLowerCase
+      Hex.encodeHexString(digest.digest()).toLowerCase
     }
 
     /**
