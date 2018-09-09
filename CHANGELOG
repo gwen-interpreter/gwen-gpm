@@ -1,4 +1,10 @@
-1.0.3
+1.1.1
+=====
+Sep 9, 2018
+- Fix #1 raised by @Sorixelle
+  - Use commons-code library instead of deprecated DatatypeConverter to calculate checksums.
+
+1.1.0
 =====
 Jun 23, 2018
 - Add following settings to support proxy configuration for download connections:
