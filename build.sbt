@@ -37,6 +37,7 @@ javaSource in Test := baseDirectory.value / "src/test/scala"
 libraryDependencies ++= Seq(
   "com.github.scopt" %% "scopt" % "3.7.0",
   "org.apache.commons" % "commons-compress" % "1.15",
+  "commons-codec" % "commons-codec" % "1.11",
   "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 )
 
