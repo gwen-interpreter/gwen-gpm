@@ -6,7 +6,7 @@ Dependency                                               | Version     | License
 com.github.scopt                scopt_2.12               | 3.7.0       | [MIT License](http://www.opensource.org/licenses/mit-license)
 org.apache.commons              commons-compress         | 1.15        | [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 org.objenesis                   objenesis                | 2.6         | [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
-org.scala-lang                  scala-library            | 2.12.6      | [BSD 3-Clause](https://www.scala-lang.org/license.html)
+org.scala-lang                  scala-library            | 2.12.7      | [BSD 3-Clause](https://www.scala-lang.org/license.html)
 
 LICENSES
 --------
