@@ -72,6 +72,7 @@ object Repository extends Enumeration {
             if lastModifiedNodes.getLength == 1
             lastModified = lastModifiedNodes.item(0).getTextContent
             majorMinor = key.split("\\/")(0)
+            if majorMinor.count(_ == '.') < 3
             archive = key.split("\\/")(1)
             idx = archive.lastIndexOf(majorMinor)
             revision = if (idx != -1) archive.substring(idx + majorMinor.length, archive.lastIndexOf(".zip")) else ""
