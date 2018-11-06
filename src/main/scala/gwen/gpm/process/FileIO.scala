@@ -221,43 +221,13 @@ object FileIO {
       }
     }
 
-    /**
-      * Backs up and zips the directory represented by the calling file. The directory is backed up into a timestamped
-      * zip file in the given directory
-      *
-      * @param toDir the directory to create the backup zip to
-      * @param existingPkg the existing package name (with version)
-      *
-      * @return Some(zip file) if it was successfully backed up or None if the calling file is not a directory
-      */
-    def createBackupZip(toDir: File, existingPkg: String): Option[File] = {
-
-      // for deleting backup dir after successful zip
-      def deleteDir(dir: File) {
-        val fs = dir.listFiles()
-        if (fs != null) {
-          fs foreach { f => if (f.isDirectory) deleteDir(f) else f.delete() }
-        }
-        dir.delete()
+    /** Deletes the current directory. */
+    def deleteDir() {
+      val fs = file.listFiles()
+      if (fs != null) {
+        fs foreach { f => if (f.isDirectory) f.deleteDir else f.delete() }
       }
-
-      if (file.isDirectory) {
-        val timestamp = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date())
-        val backupDir = new File(s"${toDir.getPath}/$existingPkg-bak-$timestamp")
-        if (!backupDir.getParentFile.exists()) backupDir.getParentFile.mkdirs()
-        println(s"[gwen-gpm] Backing up existing installation to: ${backupDir.maskUserHomeDir}.zip")
-        if (file.renameTo(backupDir)) {
-          val zipFile = backupDir.zipDir()
-          if (zipFile.nonEmpty) {
-            deleteDir(backupDir)
-          }
-          zipFile
-        }
-        else Errors.cannotBackupOutputDir(file)
-      } else {
-        None
-      }
-
+      file.delete()
     }
 
     /**

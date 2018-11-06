@@ -39,7 +39,6 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
 
   private val lockFile = init(options)
   private val cacheDir = new File(s"$rootDir/cache")
-  private val backupDir = new File(s"$rootDir/backup")
   private val packageDir = new File(s"$rootDir/package")
 
   private val version = resolveVersion(options)
@@ -105,7 +104,7 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
       if (options.pkg == GPackage.ie_driver && OSType.determine() != OSType.Win) ieDriverAvailableOnWindowsOnly()
 
       if (destinationDir.exists()) {
-        backupExisting()
+        deleteExisting()
       }
       installArchive()
       destinationDir
@@ -198,7 +197,7 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
 
   }
 
-  private def backupExisting() = {
+  private def deleteExisting() = {
     val hiddenGwenDir = new File(destinationDir, ".gwen")
     if (!hiddenGwenDir.exists()) {
       cannotInstallToExternallyManagedDir(packageId, destinationDir)
@@ -211,9 +210,9 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
                 cannotOverwriteDifferentPackage(packageId, existingPkg, destinationDir)
               }
               if(!existingPkg.endsWith(version)) {
-                println(s"[gwen-gpm] Found $existingPkg installation at: ${destinationDir.maskUserHomeDir}")
-                destinationDir.createBackupZip(new File(s"${backupDir.getPath}/${options.pkg.name}"), existingPkg)
-                println("[gwen-gpm] Backup done")
+                println(s"[gwen-gpm] Deleting $existingPkg installation at: ${destinationDir.maskUserHomeDir}")
+                destinationDir.deleteDir()
+                println("[gwen-gpm] Delete done")
               }
             case None => cannotInstallToTamperedDir(packageId, destinationDir)
           }
