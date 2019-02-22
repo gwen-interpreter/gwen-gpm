@@ -145,9 +145,12 @@ SHA-256 checksums are used to verify the integrity of all downloaded packages.
 Proxy Connections
 -----------------
 
-If you need to go through a proxy for downloads, set the following properties in your `gwen-gpm.properties` file:
-- `gwen.proxy.host`
-- `gwen.proxy.port`
+If you need to go through a proxy for downloads, create a `.gwen/gwen-gpm.properties` file in your home directory
+(Mac home: /Users/<your-username>, Windows home: C:\Users\<your-username>) with the following
+settings:
+
+- `gwen.proxy.host=<your proxy host>`
+- `gwen.proxy.port=<your procy port>`
 
 Contributions
 -------------
