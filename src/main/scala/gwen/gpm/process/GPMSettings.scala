@@ -58,7 +58,7 @@ class GPMSettings(propsFiles: List[File]) {
     if (!checksumFile.getParentFile.exists()) checksumFile.getParentFile.mkdir()
     if (checksumFile.exists()) checksumFile.delete()
     val checksumFileUrl = new URI("https://raw.githubusercontent.com/gwen-interpreter/gwen-gpm/master/gwen-checksums.properties").toURL
-    checksumFile.download(checksumFileUrl, this)
+    checksumFile.download(checksumFileUrl, this, false)
 
     // load all properties files (ensuring that default overrides are loaded last)
     val propsFilesToLoad = ((propsFiles filter { f =>

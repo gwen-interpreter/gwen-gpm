@@ -94,7 +94,7 @@ object FileIO {
       * @param url the URL to the contents to download
       * @return a tuple containing the downloaded file and the SHA-256 hash sum (hex digest) of the contents
       */
-    def download(url: URL, settings: GPMSettings): (File, String) = {
+    def download(url: URL, settings: GPMSettings, withProgressBar: Boolean = true): (File, String) = {
       val urlConn = settings.getOpt("gwen.proxy.host").map { host =>
         val port = settings.get("gwen.proxy.port").trim.toInt
         val proxy = new java.net.Proxy(java.net.Proxy.Type.HTTP, new InetSocketAddress(host, port))
@@ -107,13 +107,13 @@ object FileIO {
       val digest = MessageDigest.getInstance("SHA-256")
       val blockSize = 4096
       try {
-        val progressBar = new ProgressBar(28, contentLength)
+        val progressBar = if (withProgressBar) Some(new ProgressBar(28, contentLength)) else None
         val out = new BufferedOutputStream(new FileOutputStream(file), blockSize)
         try {
           val block = new Array[Byte](blockSize)
           var length = in.read(block, 0, blockSize)
           while (length >= 0) {
-            progressBar.stepBy(length)
+            progressBar.foreach(_.stepBy(length))
             out.write(block, 0, length)
             digest.update(block, 0, length)
             length = in.read(block, 0, blockSize)
