@@ -53,7 +53,6 @@ Installation
   on your drive
 - Add the bin folder that resides in your unpacked location to your system path
 - If on Linux/Mac, run `chmod -R u+x .` in the root of your install directory to enable execution permissions
-- Download and save this [gwen-gpm.properties](https://github.com/gwen-interpreter/gwen-gpm/raw/master/gwen-gpm.properties) file into the root of your user home directory
 
 Usage
 -----
@@ -141,23 +140,7 @@ time and so it won't matter which one you use.
 Package Verification
 --------------------
 
-SHA-256 checksums are used to verify the integrity of all downloaded packages to help prevent MITM attacks and are
-necessary since all packages are downloaded from public web sites where releases are published. We maintain them
-regularly in this [gwen-gpm.properties](???) file that you will have downloaded during your
-[gwen-pgm installation](#installation). If you need to add a new checksum entry for a later package version that is
-not listed in your copy of this file, you can do so by calculating its checksum value with the following command
-against a known distribution before adding it to the file.
-
-   (Linux, OSX, or Windows via Cygwin): `shasum -a 256 known-dist.zip`
-
-After running the above command, you can assign the printed checksum value to a property in the gwen-gpm.properties
-file on your system like so:
-  - `gwen.checksum.package-version=checksum`
-    - Where:
-      - `package` = gwen-web | chrome-driver | gecko-driver | ie-driver | selenium
-      - `version` = the package version number
-      - `checksum` = the sha-256 checksum value (hex digest) as calculated above
-        - Note: you can also provide a comma separated list of checksums for different cross platform package types
+SHA-256 checksums are used to verify the integrity of all downloaded packages.
 
 Proxy Connections
 -----------------

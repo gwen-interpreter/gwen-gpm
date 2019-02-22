@@ -19,9 +19,11 @@ import scala.collection.JavaConverters._
 import java.io.File
 import java.util.Properties
 import java.io.FileReader
+import java.net.URI
+
 import gwen.gpm.Errors.invalidPropertyError
 import gwen.gpm.Errors.missingPropertyError
-import gwen.gpm.Errors.missingGpmPropertiesError
+import gwen.gpm.process.FileIO.FileExtensions
 
 /**
   * Provides access to system properties settings defined in gwen properties files.
@@ -35,10 +37,13 @@ import gwen.gpm.Errors.missingGpmPropertiesError
 class GPMSettings(propsFiles: List[File]) {
 
   private val InlineProperty = """.*\$\{(.+?)\}.*""".r
+  private val checksumFile = new File(new File(s"${FileIO.userHomeDir.getPath}/.gwen"), "gwen-checksums.properties")
 
   private val defaultOverrides = List(
+    new File("gwen-checksums.properties"),
     new File("gwen-gpm.properties"),
-    new File(FileIO.userHomeDir, "gwen-gpm.properties")
+    new File(FileIO.userHomeDir, "gwen-gpm.properties"),
+    checksumFile
   )
 
   loadAll()
@@ -48,12 +53,16 @@ class GPMSettings(propsFiles: List[File]) {
     *
     */
   private def loadAll(): Unit = {
-    val existingSysProps = sys.props.keySet
+
+    // download latest checksum file and load into settings
+    val checksumFileUrl = new URI("https://raw.githubusercontent.com/gwen-interpreter/gwen-gpm/master/gwen-checksums.properties").toURL
+    checksumFile.download(checksumFileUrl, this)
+
     // load all properties files (ensuring that default overrides are loaded last)
     val propsFilesToLoad = ((propsFiles filter { f =>
       f.exists() && !defaultOverrides.exists(_.getCanonicalPath == f.getCanonicalPath)
     }).distinct ++ defaultOverrides).filter(_.exists())
-    if (!propsFilesToLoad.exists(_.getName == "gwen-gpm.properties")) missingGpmPropertiesError
+
     val props = propsFilesToLoad.foldLeft(new Properties()) {
       (props, file) =>
         props.load(new FileReader(file))
@@ -63,6 +72,7 @@ class GPMSettings(propsFiles: List[File]) {
         }
         props
     }
+    val existingSysProps = sys.props.keySet
     props.entrySet().asScala.foreach { entry =>
       val key = entry.getKey.asInstanceOf[String]
       if (!existingSysProps.contains(key)) {

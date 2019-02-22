@@ -24,12 +24,6 @@ import gwen.gpm.model.GPackage
   */
 object Errors {
 
-  def missingGpmPropertiesError() =
-    throw new GPMException(
-      """Mandatory gwen-gpm.properties file not provided or found.
-        | This file is required for checksum verification. Either specify a path to this file through the
-        | -p/--properties command line option or ensure that it exists in your user home directory.""".stripMargin)
-
   def unknownHostOSType() =
     throw new GPMException("Could not determine host OS type")
 
@@ -61,10 +55,7 @@ object Errors {
     throw new GPMException(s"Property not found: $name")
 
   def invalidChecksumError() =
-    throw new GPMException(
-      s"""Package discarded: calculated checksum did not match expected value
-         | More info here: https://github.com/gwen-interpreter/gwen-gpm#package-verification
-       """.stripMargin)
+    throw new GPMException("Package discarded: calculated checksum did not match expected value")
 
   def checksumNotConfiguredError(checksumKey: String, downloadUrl: String) =
     throw new GPMChecksumNotConfiguredException(checksumKey, downloadUrl)
@@ -90,11 +81,5 @@ class GPMException(msg: String, cause: Throwable = null) extends Exception(msg, 
   *
   */
 class GPMChecksumNotConfiguredException(checksumKey: String, downloadUrl: String)
-  extends GPMException(
-    s"""Checksum not configured for package at: $downloadUrl
-       | To enable download for this package, set the following in your gwen-gpm.properties file:
-       |  $checksumKey=sha256sum
-       | To calculate the sha256sum, run the following command on a known distribution:
-       |  (Linux, Mac, or Windows via Cygwin): shasum -a 256 known-dist.file
-       | More info here: https://github.com/gwen-interpreter/gwen-gpm#package-verification""".stripMargin)
+  extends GPMException(s"Checksum not configured for package at: $downloadUrl (package is unknown)")
 
