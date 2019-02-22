@@ -53,6 +53,7 @@ Installation
   on your drive
 - Add the bin folder that resides in your unpacked location to your system path
 - If on Linux/Mac, run `chmod -R u+x .` in the root of your install directory to enable execution permissions
+- Configure a [proxy connection](#proxy-connections) if you are behind a firewall
 
 Usage
 -----
