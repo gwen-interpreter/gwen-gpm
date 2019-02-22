@@ -55,8 +55,8 @@ class GPMSettings(propsFiles: List[File]) {
   private def loadAll(): Unit = {
 
     // download latest checksum file and load into settings
-    checksumFile.delete()
-    if (checksumFile.exists()) checksumFile.createNewFile()
+    if (!checksumFile.getParentFile.exists()) checksumFile.getParentFile.mkdir()
+    if (checksumFile.exists()) checksumFile.delete()
     val checksumFileUrl = new URI("https://raw.githubusercontent.com/gwen-interpreter/gwen-gpm/master/gwen-checksums.properties").toURL
     checksumFile.download(checksumFileUrl, this)
 
