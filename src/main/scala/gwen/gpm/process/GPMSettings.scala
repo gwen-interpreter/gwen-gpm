@@ -40,7 +40,6 @@ class GPMSettings(propsFiles: List[File]) {
   private val checksumFile = new File(new File(s"${FileIO.userHomeDir.getPath}/.gwen"), "gwen-checksums.properties")
 
   private val defaultOverrides = List(
-    new File("gwen-checksums.properties"),
     new File("gwen-gpm.properties"),
     new File(FileIO.userHomeDir, "gwen-gpm.properties")
   )
