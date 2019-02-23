@@ -116,11 +116,6 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
   def download(): File = {
     if (!archiveFile.exists()) {
       val downloadUrl = options.pkg.getDownloadUrl(version)
-      // report error if no checksum is configured for this package version
-      if (settings.getOpt(checksumKey).isEmpty) {
-        if (archiveFile.exists()) archiveFile.delete()
-        checksumNotConfiguredError(checksumKey, downloadUrl)
-      }
       println(s"[gwen-gpm] Downloading $packageId from $downloadUrl")
       if (!archiveFile.getParentFile.exists()) archiveFile.getParentFile.mkdirs()
       val archiveURL = new URI(downloadUrl)
@@ -134,15 +129,21 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
   }
 
   private def verifyChecksum(options: GPMOptions, fileChecksum: String) = {
-    val validChecksums = settings.getOpt(checksumKey).map(_.split(",").toList).getOrElse {
-      archiveFile.delete()
-      checksumNotConfiguredError(checksumKey, options.pkg.getDownloadUrl(version))
-    }
-    if (!validChecksums.exists(_.equalsIgnoreCase(fileChecksum))) {
-      archiveFile.delete()
-      invalidChecksumError()
-    } else {
-      println(s"[gwen-gpm] Checksum OK")
+
+    def getChecksums(download: Boolean): Option[List[String]] =
+      settings.loadChecksums(download).map(_.get(checksumKey).map(_.split(",").toList)).getOrElse(None)
+
+    getChecksums(download = false).getOrElse(getChecksums(download = true).getOrElse(Nil)) match {
+      case Nil =>
+        archiveFile.delete()
+        checksumNotConfiguredError(checksumKey, options.pkg.getDownloadUrl(version))
+      case checksums =>
+        if (!checksums.exists(_.equalsIgnoreCase(fileChecksum))) {
+          archiveFile.delete()
+          invalidChecksumError()
+        } else {
+          println(s"[gwen-gpm] Checksum OK")
+        }
     }
   }
 

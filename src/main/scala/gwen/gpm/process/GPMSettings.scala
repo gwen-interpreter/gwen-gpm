@@ -42,8 +42,7 @@ class GPMSettings(propsFiles: List[File]) {
   private val defaultOverrides = List(
     new File("gwen-checksums.properties"),
     new File("gwen-gpm.properties"),
-    new File(FileIO.userHomeDir, "gwen-gpm.properties"),
-    checksumFile
+    new File(FileIO.userHomeDir, "gwen-gpm.properties")
   )
 
   loadAll()
@@ -53,12 +52,6 @@ class GPMSettings(propsFiles: List[File]) {
     *
     */
   private def loadAll(): Unit = {
-
-    // download latest checksum file and load into settings
-    if (!checksumFile.getParentFile.exists()) checksumFile.getParentFile.mkdir()
-    if (checksumFile.exists()) checksumFile.delete()
-    val checksumFileUrl = new URI("https://raw.githubusercontent.com/gwen-interpreter/gwen-gpm/master/gwen-checksums.properties").toURL
-    checksumFile.download(checksumFileUrl, this, false)
 
     // load all properties files (ensuring that default overrides are loaded last)
     val propsFilesToLoad = ((propsFiles filter { f =>
@@ -81,6 +74,22 @@ class GPMSettings(propsFiles: List[File]) {
         val value = resolve(props.getProperty(key), props)
         sys.props += ((key, value))
       }
+    }
+  }
+
+  def loadChecksums(download: Boolean): Option[Map[String, String]] = {
+    if (!checksumFile.getParentFile.exists()) checksumFile.getParentFile.mkdir()
+    if (download) {
+      if (checksumFile.exists()) checksumFile.delete()
+      val checksumFileUrl = new URI("https://raw.githubusercontent.com/gwen-interpreter/gwen-gpm/master/gwen-checksums.properties").toURL
+      checksumFile.download(checksumFileUrl, this, withProgressBar = false)
+    }
+    if (checksumFile.exists()) {
+      val checksums = new Properties()
+      checksums.load(new FileReader(checksumFile))
+      Some(checksums.asScala.toMap)
+    } else {
+      None
     }
   }
 
