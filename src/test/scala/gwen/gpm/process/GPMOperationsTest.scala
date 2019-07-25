@@ -29,6 +29,8 @@ class GPMOperationsTest extends FlatSpec with Matchers {
   private val lockFile = new File(rootDir, ".lock")
   private val settings = new GPMSettings(Nil)
 
+  sys.props += (("gpm.checksum.latest", "true"))
+
   "gwen-web package" should "install" in {
     if (lockFile.exists()) lockFile.delete()
     val destDir = new File(s"${rootDir.getPath}/package/gwen-web")

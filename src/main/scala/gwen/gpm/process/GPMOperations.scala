@@ -120,7 +120,7 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
       if (!archiveFile.getParentFile.exists()) archiveFile.getParentFile.mkdirs()
       val archiveURL = new URI(downloadUrl)
       val (_, fileChecksum) = archiveFile.download(archiveURL.toURL, settings)
-      verifyChecksum(options, fileChecksum)
+      verifyChecksum(settings, options, fileChecksum)
       println(s"[gwen-gpm] Download done")
     }  else {
       println(s"[gwen-gpm] $packageId exists in download cache")
@@ -128,19 +128,24 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
     archiveFile
   }
 
-  private def verifyChecksum(options: GPMOptions, fileChecksum: String) = {
+  private def verifyChecksum(settings: GPMSettings, options: GPMOptions, fileChecksum: String) = {
 
     def getChecksums(download: Boolean): Option[List[String]] =
       settings.loadChecksums(download).map(_.get(checksumKey).map(_.split(",").toList)).getOrElse(None)
 
+    val verify = options.version != "latest" || sys.props.get("gpm.checksum.latest").getOrElse("false").toBoolean
     getChecksums(download = false).getOrElse(getChecksums(download = true).getOrElse(Nil)) match {
       case Nil =>
-        archiveFile.delete()
-        checksumNotConfiguredError(checksumKey, options.pkg.getDownloadUrl(version))
+        if (verify) {
+          archiveFile.delete()
+          checksumNotConfiguredError(checksumKey, options.pkg.getDownloadUrl(version))
+        }
       case checksums =>
         if (!checksums.exists(_.equalsIgnoreCase(fileChecksum))) {
-          archiveFile.delete()
-          invalidChecksumError()
+          if (verify) {
+            archiveFile.delete()
+            invalidChecksumError()
+          }
         } else {
           println(s"[gwen-gpm] Checksum OK")
         }
@@ -162,7 +167,7 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
   private def unpackArchive() = {
 
     // verify checksum of archive first (reattempt download on failure)
-    Try(verifyChecksum(options, archiveFile.checksum)) match {
+    Try(verifyChecksum(settings, options, archiveFile.checksum)) match {
       case Failure(e) =>
         if (e.isInstanceOf[GPMChecksumNotConfiguredException]) throw e
         else {

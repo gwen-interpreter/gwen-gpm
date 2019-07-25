@@ -1,3 +1,8 @@
+1.1.5
+=====
+Jul 25, 2019
+- Support deferred checksum verification of latest packages
+
 1.1.4
 =====
 Feb 23, 2019
