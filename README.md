@@ -3,22 +3,21 @@
 Gwen-GPM
 ========
 
-A package manager for downloading and installing [Gwen](https://github.com/gwen-interpreter/gwen)
-[packages](https://github.com/gwen-interpreter/gwen#what-engines-are-available) and their binary dependencies to local
-workstations, servers, or shared workspaces in a consistent manner across platforms. Downloaded packages are cached and
-managed in a local `.gwen/cache` folder in your user home directory and can be installed to the file system in
-locations that you specify. Checksum verifications are performed on all downloaded packages to verify their integrity
-and no environment variables or system paths are created or modified during installation so your system remains intact.
+A package manager for downloading and installing 
+[Gwen](https://github.com/gwen-interpreter gwen) and 
+[Selenium](https://github.com/SeleniumHQ/selenium) packages in a consistent 
+manner across platforms. Downloaded packages are cached and managed in a local 
+`.gwen/ cache` folder in your user home directory and can be installed to the 
+file system in locations that you specify. Checksum verifications are performed 
+on downloaded packages to verify their integrity and no environment variables 
+or system paths are created or modified during installation so your system 
+remains intact.
 
 The download and installation of the following packages are managed:
 
 - Gwen packages
   - [gwen-web](https://github.com/gwen-interpreter/gwen-web)
-- Native web drivers
-  - [chrome-driver](https://sites.google.com/a/chromium.org/chromedriver/)
-  - [gecko-driver](https://github.com/mozilla/geckodriver)
-  - [ie-driver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver)
-- Java libraries
+- Selenium Java packages
   - [selenium](https://github.com/SeleniumHQ/selenium)
 
 ### Current Status
@@ -64,7 +63,7 @@ gwen-gpm [options] <operation> <package> <version> [destination]
   -p, --properties <files>
                            Comma separated list of properties files
   <operation>              install | update
-  <package>                gwen-web | chrome-driver | gecko-driver | ie-driver | selenium
+  <package>                gwen-web | selenium
   <version>                latest | version property | version number
   [destination]            the destination folder to install the package to
                            - if not specified, defaults to ~/.gwen/packages/<package>
@@ -86,17 +85,17 @@ before new installations are performed.
 - Install the latest gwen-web to the default directory at ~/.gwen/packages/gwen-web
   - `gwen-gpm install gwen-web latest`
 
-- Install the latest gwen-web to the target/gwen-packages/gwen-web folder relative to current directory
-  - `gwen-gpm install gwen-web latest target/gwen-packages/gwen-web`
+- Install the latest gwen-web to the target/gwen/gwen-web folder relative to current directory
+  - `gwen-gpm install gwen-web latest target/gwen/gwen-web`
 
-- Install a specific version of gecko driver to the default directory at ~/.gwen/packages/gecko-driver
-  - `gwen-gpm install gecko-driver 0.18.0`
+- Install a specific version of selenium to the default directory at ~/.gwen/packages/selenium
+  - `gwen-gpm install selenium 3.141.59`
 
-- Install a specific version of gecko driver to c:/web-drivers/gecko-driver.
-  - `gwen-gpm install gecko-driver 0.18.0 c:/web-drivers/gecko-driver`
+- Install a specific version of selenium to c:/selenium.
+  - `gwen-gpm install selenium 3.11.0 c:/selenium`
 
-- Install the chrome driver version set in a property to the target/chrome-driver folder relative to current directory
-  - `gwen-gpm install chrome-driver chrome.version target/chrome-driver -p path/to/file.properties`
+- Install the selnium version set in a property to the target/selenim folder relative to current directory
+  - `gwen-gpm install selenium selenium.version target/selenium -p path/to/file.properties`
 
 ### Update Operations
 
@@ -121,22 +120,22 @@ time and so it won't matter which one you use.
   directory
   - `gwen-gpm update gwen-web latest`
 
-- Update latest gwen-web version in cache and install it to the target/gwen-packages/gwen-web folder relative to current
+- Update latest gwen-web version in cache and install it to the target/gwen/gwen-web folder relative to current
   directory
-  - `gwen-gpm update gwen-web latest target/gwen-packages/gwen-web`
+  - `gwen-gpm update gwen-web latest target/gwen/gwen-web`
 
-- Install a specific version of gecko driver to the default directory at ~/.gwen/packages/gecko-driver (update behaves
+- Install a specific version of selenium to the default directory at ~/.gwen/packages/selenium (update behaves
   the same as install when a specific version is specified)
-  - `gwen-gpm update gecko-driver 0.18.0`
+  - `gwen-gpm update selenium 3.141.59`
 
-- Install a specific version of gecko driver to the c:/web-drivers/gecko-driver folder location (update behaves the
+- Install a specific version of selenium to the c:/selenium folder location (update behaves the
   same as install when a specific version is specified)
-  - `gwen-gpm update gecko-driver 0.18.0 c:/web-drivers/gecko-driver`
+  - `gwen-gpm update selenium 3.11.0 c:/selenium`
 
-- Update/install the chrome driver version set in a property to the target/chrome-driver folder relative to current
+- Update/install selenium version set in a property to the target/selnium folder relative to current
   directory. If the version in the properties file is set to 'latest' then the latest version is updated in the cache 
   and installed. Otherwise if the version is set to a specific release, then the update will behave like an install.
-  - `gwen-gpm update chrome-driver chrome.version target/chrome-driver -p path/to/file.properties`
+  - `gwen-gpm update selenium selenium.version target/selenium -p path/to/file.properties`
 
 Package Verification
 --------------------

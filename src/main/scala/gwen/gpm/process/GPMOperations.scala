@@ -100,9 +100,6 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
 
       download()
 
-      // do not install windows packages on non-windows platforms
-      if (options.pkg == GPackage.ie_driver && OSType.determine() != OSType.Win) ieDriverAvailableOnWindowsOnly()
-
       if (destinationDir.exists()) {
         deleteExisting()
       }

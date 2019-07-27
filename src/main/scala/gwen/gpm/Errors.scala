@@ -33,9 +33,6 @@ object Errors {
   def latestVersionResolveError(packageName: String) =
     throw new GPMException(s"Could not resolve latest $packageName version (try again or specify an explicit version instead)")
 
-  def ieDriverAvailableOnWindowsOnly() =
-    throw new GPMException(s"The ${GPackage.ie_driver} package is only available on Windows platforms")
-
   def cannotInstallToExternallyManagedDir(targetPkg: String, dir: File) =
     throw new GPMException(s"Cannot install $targetPkg package to existing folder that is externally managed: $dir")
 

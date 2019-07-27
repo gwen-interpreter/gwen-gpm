@@ -41,39 +41,6 @@ object GPackage extends Enumeration {
         s"https://github.com/gwen-interpreter/gwen-web/releases/download/v$version/gwen-web-$version.zip"
   }
 
-  val chrome_driver =
-    new GPackageValue("chrome-driver", ArchiveType.Zip, excludeTopDir = false) {
-      def fetchLatestVersion: String =
-        Repository.S3.fetchLatestVersion("https://chromedriver.storage.googleapis.com", "chromedriver")
-      def getDownloadUrl(version: String): String = {
-        val os = OSType.determine().toString.toLowerCase
-        val architecture = if (OSType.determine() == OSType.Win) 32 else OSType.architecture
-        s"https://chromedriver.storage.googleapis.com/${majorMinorOf(version)}/chromedriver_$os$architecture.zip"
-      }
-  }
-
-  val gecko_driver =
-    new GPackageValue("gecko-driver",
-                      if (OSType.determine() == OSType.Win) ArchiveType.Zip else ArchiveType.TarGz,
-                      excludeTopDir = false) {
-      def fetchLatestVersion: String =
-        Repository.GitHub.fetchLatestVersion("https://github.com/mozilla", "geckodriver")
-      def getDownloadUrl(version: String): String = {
-        val osType = OSType.determine()
-        val architecture = if (osType == OSType.Mac) "os" else OSType.architecture
-        val filename = s"geckodriver-v$version-${osType.toString.toLowerCase}$architecture.${archiveType.fileExtension}"
-        s"https://github.com/mozilla/geckodriver/releases/download/v$version/$filename"
-      }
-  }
-
-  val ie_driver =
-    new GPackageValue("ie-driver", ArchiveType.Zip, excludeTopDir = false) {
-      def fetchLatestVersion: String =
-        Repository.S3.fetchLatestVersion("https://selenium-release.storage.googleapis.com", "IEDriverServer")
-      def getDownloadUrl(version: String): String =
-        s"http://selenium-release.storage.googleapis.com/${majorMinorOf(version)}/IEDriverServer_Win32_$version.zip"
-  }
-
   val selenium =
     new GPackageValue("selenium", ArchiveType.Zip, excludeTopDir = false) {
       def fetchLatestVersion: String =

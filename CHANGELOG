@@ -1,3 +1,10 @@
+2.0.0
+=====
+Jul 27, 2019
+- Manage only Gwen and Selenium packages. WebDriver binaries no are longer managed by 
+  this package manager since gwen-web 2.34+ now uses an embedded
+  [WebDriverManager](https://github.com/bonigarcia/webdrivermanager) instead.
+
 1.1.5
 =====
 Jul 25, 2019
