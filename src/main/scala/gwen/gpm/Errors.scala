@@ -60,6 +60,9 @@ object Errors {
   def missingDestinationError() =
     throw new GPMException(s"Destination directory not provided")
 
+  def proxyConfigError() =
+    throw new GPMException(s"Invalid proxy configuration: See: https://github.com/gwen-interpreter/gwen-gpm#proxy-connections")
+
 }
 
 /**

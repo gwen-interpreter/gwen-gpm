@@ -194,9 +194,9 @@ class GPMOperations(options: GPMOptions, settings: GPMSettings) {
     installFile.createNewFile()
 
     // set execution permission on non windows platforms
-      if (OSType.determine() != OSType.Win) {
-        Seq("chmod", "-R", "u+x", destinationDir.getAbsolutePath).!
-      }
+    if (OSType.determine() != OSType.Win) {
+      Seq("chmod", "-R", "u+x", destinationDir.getAbsolutePath).!
+    }
 
   }
 

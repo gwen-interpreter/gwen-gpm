@@ -1,3 +1,10 @@
+3.0.0
+=====
+Jul 30, 2019
+- Proxy settings are now read from the HTTPS_PROXY environment variable instead 
+  being configured as properties in Gwen settings.
+- gwen-gpm.properties file is no longer used or required
+
 2.0.0
 =====
 Jul 27, 2019

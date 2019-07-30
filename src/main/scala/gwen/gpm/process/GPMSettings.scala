@@ -26,11 +26,10 @@ import gwen.gpm.Errors.missingPropertyError
 import gwen.gpm.process.FileIO.FileExtensions
 
 /**
-  * Provides access to system properties settings defined in gwen properties files.
-  * Properties files are loaded in the order provided with the gwen.properties file in the user home directory (if it
-  * exists) being loaded last to ensure that it overrides all others. Therefore latter properties always override
-  * former ones. Existing system properties in the environment are not overridden by values in properties files
-  * (and therefore cannot be overridden).
+  * Provides access to properties settings defined in given properties files.
+  * Properties files are loaded in the order provided. Therefore latter properties always override
+  * former ones. Existing system properties in the environment are not overridden by values in 
+  * properties files.
   *
   * @param propsFiles the properties files to load (in the order provided, latter props will override former)
   */
@@ -39,25 +38,14 @@ class GPMSettings(propsFiles: List[File]) {
   private val InlineProperty = """.*\$\{(.+?)\}.*""".r
   private val checksumFile = new File(new File(s"${FileIO.userHomeDir.getPath}/.gwen"), "gwen-checksums.properties")
 
-  private val defaultOverrides = List(
-    new File("gwen-gpm.properties"),
-    new File(FileIO.userHomeDir, "gwen-gpm.properties")
-  )
-
-  loadAll()
-
   /**
     * Loads all properties from the given files.
     *
     */
   private def loadAll(): Unit = {
 
-    // load all properties files (ensuring that default overrides are loaded last)
-    val propsFilesToLoad = ((propsFiles filter { f =>
-      f.exists() && !defaultOverrides.exists(_.getCanonicalPath == f.getCanonicalPath)
-    }).distinct ++ defaultOverrides).filter(_.exists())
-
-    val props = propsFilesToLoad.foldLeft(new Properties()) {
+    // load all properties files (in order given)
+    val props = propsFiles.foldLeft(new Properties()) {
       (props, file) =>
         props.load(new FileReader(file))
         props.entrySet().asScala foreach { entry =>

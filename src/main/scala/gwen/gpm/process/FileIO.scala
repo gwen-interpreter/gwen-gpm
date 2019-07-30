@@ -22,18 +22,23 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.zip.{ZipEntry, ZipInputStream, ZipOutputStream}
 
-import gwen.gpm.Errors
+import gwen.gpm.Errors.proxyConfigError
+import org.apache.commons.codec.binary.Base64
 import org.apache.commons.codec.binary.Hex
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream
 import org.apache.commons.compress.utils.IOUtils
 
 import scala.util.Try
+import java.net.URLConnection
 
 /**
   * Provides convenience functions for file I/O.
   */
 object FileIO {
+
+  val ProxyPattern = """(.+):(\d+)""".r
+  val ProxySecurePattern = """(.+):(.+)@(.+):(\d+)""".r
 
   /** The user home directory. */
   val userHomeDir: File = new File(System.getProperty("user.home").replace("\\", "/"))
@@ -95,12 +100,35 @@ object FileIO {
       * @return a tuple containing the downloaded file and the SHA-256 hash sum (hex digest) of the contents
       */
     def download(url: URL, settings: GPMSettings, withProgressBar: Boolean = true): (File, String) = {
-      val urlConn = settings.getOpt("gwen.proxy.host").map { host =>
-        val port = settings.get("gwen.proxy.port").trim.toInt
+
+      def openProxyConnection(host: String, port: Int, username: Option[String], password: Option[String]): URLConnection = {
+        println(s"[gwen-gpm] Using configured proxy for download connection")    
         val proxy = new java.net.Proxy(java.net.Proxy.Type.HTTP, new InetSocketAddress(host, port))
-        println(s"[gwen-gpm] Using configured proxy for download connection")
-        url.openConnection(proxy)
-      } getOrElse(url.openConnection())
+        val conn = url.openConnection(proxy)
+        username foreach { user => 
+          password foreach { pass => 
+            val creds = Base64.encodeBase64String(s"$username:$password".getBytes)
+            conn.setRequestProperty("Proxy-Authorization", "Basic " + creds);    
+          }
+        }
+        conn
+      }
+      
+      val urlConn = (sys.env.get("HTTPS_PROXY") map { proxyConfig =>
+        proxyConfig match {
+          case ProxySecurePattern(username, password, host, port) =>
+            openProxyConnection(host, port.toInt, Some(username), Some(password))
+          case ProxyPattern(host, port) =>
+            (sys.env.get("HTTPS_PROXY_USER") map { username =>
+              sys.env.get("HTTPS_PROXY_PASS").fold(proxyConfigError()) { password =>
+                openProxyConnection(host, port.toInt, Some(username), Some(password))
+              }
+            }).getOrElse(openProxyConnection(host, port.toInt, None, None))
+          case _ =>
+            proxyConfigError()
+        }
+      }).getOrElse(url.openConnection())
+      
       val httpConn = urlConn.asInstanceOf[HttpURLConnection]
       val contentLength = httpConn.getContentLengthLong
       val in = new BufferedInputStream(httpConn.getInputStream)
