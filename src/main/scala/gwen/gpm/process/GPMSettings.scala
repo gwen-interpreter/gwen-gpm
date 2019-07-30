@@ -38,6 +38,8 @@ class GPMSettings(propsFiles: List[File]) {
   private val InlineProperty = """.*\$\{(.+?)\}.*""".r
   private val checksumFile = new File(new File(s"${FileIO.userHomeDir.getPath}/.gwen"), "gwen-checksums.properties")
 
+  loadAll()
+
   /**
     * Loads all properties from the given files.
     *

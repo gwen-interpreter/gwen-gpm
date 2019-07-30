@@ -1,3 +1,8 @@
+3.0.1
+=====
+Jul 30, 2019
+- Load passed in properties on startup
+
 3.0.0
 =====
 Jul 30, 2019
