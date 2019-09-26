@@ -67,7 +67,7 @@ object Repository extends Enumeration {
             keyNodes = contentsNode.getElementsByTagName("Key")
             if keyNodes.getLength == 1
             key = keyNodes.item(0).getTextContent
-            if key.contains(name) && !key.toLowerCase.contains("beta")
+            if key.contains(name) && !key.toLowerCase.contains("alpha") && !key.toLowerCase.contains("beta")
             lastModifiedNodes = contentsNode.getElementsByTagName("LastModified")
             if lastModifiedNodes.getLength == 1
             lastModified = lastModifiedNodes.item(0).getTextContent
