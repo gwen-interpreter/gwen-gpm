@@ -17,8 +17,6 @@ package gwen.gpm
 
 import java.io.File
 
-import gwen.gpm.model.GPackage
-
 /**
   * Convenience methods for signalling various types of errors.
   */

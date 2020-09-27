@@ -83,7 +83,7 @@ object GPMOptions {
         }).getOrElse(success)
       } valueName "<files>" text "Comma separated list of properties files"
 
-      arg[String]("<operation>") required() validate { o =>
+      arg[String]("<operation>").required().validate { o =>
         Try(Operation.withName(o)) match {
           case Success(_) => success
           case Failure(e) =>
@@ -93,7 +93,7 @@ object GPMOptions {
         options.copy(operation = Operation.withName(o))
       } text Operation.values.mkString(" | ")
 
-      arg[String]("<package>") required() validate { p =>
+      arg[String]("<package>").required().validate { p =>
         Try(GPackage.withName(p)) match {
           case Success(_) => success
           case Failure(_) =>
@@ -103,11 +103,11 @@ object GPMOptions {
         options.copy(pkg = GPackage.withName(p))
       } text GPackage.values.mkString(" | ")
 
-      arg[String]("<version>") required() action { (v, options) =>
+      arg[String]("<version>").required().action { (v, options) =>
         options.copy(version = v)
       } text "latest | version property | version number"
 
-      arg[File]("<destination>") optional() action { (d, options) =>
+      arg[File]("<destination>").optional().action { (d, options) =>
         options.copy(destination = Some(d))
       } text
         """the destination folder to install the package to

@@ -1,5 +1,4 @@
 import sbtrelease._
-import ReleasePlugin.autoImport._
 
 // we hide the existing definition for setReleaseVersion to replace it with our own
 import sbtrelease.ReleaseStateTransformations.{setReleaseVersion=>_,_}
@@ -20,17 +19,25 @@ def setVersionOnly(selectVersion: Versions => String): ReleaseStep =  { st: Stat
 
 lazy val setReleaseVersion: ReleaseStep = setVersionOnly(_._1)
 
-releaseVersion <<= (releaseVersionBump)( bumper=>{
-   ver => Version(ver)
-          .map(_.withoutQualifier)
-          .map(_.bump(bumper).string).getOrElse(versionFormatError)
-})
+releaseVersion := { ver =>
+  Version(ver)
+    .map(_.withoutQualifier)
+    .map(_.bump(releaseVersionBump.value).string).getOrElse(versionFormatError(ver))
+}
+
+publishTo := sonatypePublishToBundle.value
+releaseCrossBuild := false
+releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
 releaseProcess := Seq(
   checkSnapshotDependencies,
   inquireVersions,
   setReleaseVersion,
+  runClean,
   runTest,
   tagRelease,
+  publishArtifacts,
+  releaseStepCommandAndRemaining("publishSigned"),
+  releaseStepCommand("sonatypeBundleRelease"),
   pushChanges
 )

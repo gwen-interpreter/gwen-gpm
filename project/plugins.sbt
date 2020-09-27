@@ -1,7 +1,8 @@
-addSbtPlugin("org.scala-sbt.plugins" % "sbt-onejar" % "0.8")
-
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.2.0")
-
+addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.13")
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0")
-
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.0")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.7.5")
+addSbtPlugin("com.typesafe.sbt" % "sbt-license-report" % "1.2.0")
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.15.0")
+addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.10.0-RC1")
+addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.1.2-1")
+addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.4")

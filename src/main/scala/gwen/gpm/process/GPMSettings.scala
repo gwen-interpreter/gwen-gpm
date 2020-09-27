@@ -15,7 +15,7 @@
  */
 package gwen.gpm.process
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import java.io.File
 import java.util.Properties
 import java.io.FileReader

@@ -18,8 +18,6 @@ package gwen.gpm.process
 import java.io._
 import java.net.{HttpURLConnection, InetSocketAddress, URL}
 import java.security.MessageDigest
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.zip.{ZipEntry, ZipInputStream, ZipOutputStream}
 
 import gwen.gpm.Errors.proxyConfigError
@@ -78,7 +76,7 @@ object FileIO {
       *
       * @param toDir the directory to move the files to
       */
-    def moveFiles(toDir: File) {
+    def moveFiles(toDir: File): Unit = {
       if (file.isDirectory) {
         file.listFiles() foreach { f =>
           if (f.isDirectory) {
@@ -250,10 +248,10 @@ object FileIO {
     }
 
     /** Deletes the current directory. */
-    def deleteDir() {
+    def deleteDir(): Unit = {
       val fs = file.listFiles()
       if (fs != null) {
-        fs foreach { f => if (f.isDirectory) f.deleteDir else f.delete() }
+        fs.foreach { f => if (f.isDirectory) f.deleteDir() else f.delete() }
       }
       file.delete()
     }

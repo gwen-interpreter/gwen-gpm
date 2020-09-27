@@ -1,3 +1,13 @@
+3.0.3
+=====
+Sep 27, 2020
+- Update libarary dependencies
+  - Update scala from 2.12.8 to 2.13.3
+  - Update commons-compress from 1.15 to 1.20
+  - Update commons-codec from 1.11 to 1.15
+- Update build tooling
+  - Migrate from SBT 0.13.17 to 1.3.4
+
 3.0.2
 =====
 Sep 27, 2019

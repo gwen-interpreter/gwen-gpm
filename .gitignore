@@ -10,3 +10,9 @@ project/project/target/
 .bloop/
 *.log
 /bin/
+.vscode/
+.metals/
+.bloop/
+.ammonite/
+metals.sbt
+.java-version

@@ -64,7 +64,7 @@ object GwenGPM extends App {
     }
   }
 
-  private def printBanner(args: Array[String]) {
+  private def printBanner(args: Array[String]): Unit = {
     println(("""|   _
                 |  { \," Gwen Package Manager
                 | {_`/   gwen-gpm v""" + implVersion + """

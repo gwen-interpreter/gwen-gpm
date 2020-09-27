@@ -66,9 +66,9 @@ object DurationFormatter {
   import scala.concurrent.duration._
 
   private val Formatters = List(
-    HOURS -> ("h", new DecimalFormat("00")),
-    MINUTES -> ("m", new DecimalFormat("00")),
-    SECONDS -> ("s", new DecimalFormat("00"))
+    HOURS -> (("h", new DecimalFormat("00"))),
+    MINUTES -> (("m", new DecimalFormat("00"))),
+    SECONDS -> (("s", new DecimalFormat("00")))
   )
 
   /**
