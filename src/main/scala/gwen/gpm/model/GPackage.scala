@@ -38,7 +38,7 @@ object GPackage extends Enumeration {
       def fetchLatestVersion: String =
         Repository.GitHub.fetchLatestVersion("https://github.com/gwen-interpreter", "gwen-web")
       def getDownloadUrl(version: String): String =
-        s"https://github.com/gwen-interpreter/gwen-web/releases/download/v$version/gwen-web-$version.zip"
+        s"https://repo1.maven.org/maven2/org/gweninterpreter/gwen-web/$version/gwen-web-$version.zip"
   }
 
   val selenium =
