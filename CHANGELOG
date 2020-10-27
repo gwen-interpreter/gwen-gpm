@@ -1,3 +1,7 @@
+3.0.5
+=====
+- Download gwen zip from maven central instead of github
+
 3.0.4
 =====
 - Set scala version for travis
