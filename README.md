@@ -3,6 +3,8 @@
 Gwen-GPM
 ========
 
+> Deprecated in favor of [gwen-web-npm](https://github.com/gwen-interpreter/gwen-web-npm)
+
 A package manager for downloading and installing 
 [Gwen](https://github.com/gwen-interpreter gwen) and 
 [Selenium](https://github.com/SeleniumHQ/selenium) packages in a consistent 
